@@ -3,10 +3,7 @@ package edu.hitsz.aircraft;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bullet.EnemyBullet;
-import edu.hitsz.items.AbstractProp;
-import edu.hitsz.items.BombSupply;
-import edu.hitsz.items.FireSupply;
-import edu.hitsz.items.HpSupply;
+
 
 import java.util.LinkedList;
 import java.util.List;
