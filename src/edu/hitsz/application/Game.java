@@ -51,11 +51,7 @@ public class Game extends JPanel {
     private int cycleTime = 0;
 
     public Game() {
-        heroAircraft = new HeroAircraft(
-                Main.WINDOW_WIDTH / 2,
-                Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-                0, 0, 100);
-
+        heroAircraft = HeroAircraft.getInstance();
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
         enemyBullets = new LinkedList<>();
@@ -195,7 +191,7 @@ public class Game extends JPanel {
      * 3. 英雄获得补给
      */
     private void crashCheckAction() {
-        // TODO 敌机子弹攻击英雄
+        //  敌机子弹攻击英雄
         for (AbstractBullet enemybullet : enemyBullets)
         if (heroAircraft.crash(enemybullet)){
             heroAircraft.decreaseHp(enemybullet.getPower());
@@ -217,7 +213,7 @@ public class Game extends JPanel {
                     enemyAircraft.decreaseHp(bullet.getPower());
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
-                        // TODO 获得分数，产生道具补给
+                        //  获得分数，产生道具补给
                         score += 10;
                         int i = enemyAircraft.form();
                         if(i==2){
@@ -237,7 +233,7 @@ public class Game extends JPanel {
             }
         }
 
-        // Todo: 我方获得道具，道具生效
+        // 我方获得道具，道具生效
 
         for(AbstractProp p:abstractProp){
             int f=p.form();

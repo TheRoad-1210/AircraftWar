@@ -62,10 +62,13 @@ AbsractProp <|-- FireSupply
 AbsractProp <|-- BombSupply
 
 class HeroAircraft {
+
+    -{static}instance:HeroAircraft
+    +{static}getInstance():HeroAircraft
     - shootNum:int
     - power:int
     - direction:int
-    + HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp):void
+    - HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp):void
     + forward():void
     + shoot():List<Bullet>
     + form() :int
