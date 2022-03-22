@@ -1,5 +1,7 @@
 package edu.hitsz.items;
 
+import edu.hitsz.aircraft.HeroAircraft;
+
 public class BombSupply extends AbstractProp{
 
     public BombSupply(int locationX, int locationY) {
@@ -7,7 +9,9 @@ public class BombSupply extends AbstractProp{
     }
 
     @Override
-    public int form() {
-        return 0;
+    public void use(HeroAircraft heroAircraft) {
+        System.out.println("BombSupply active!");
     }
+
+
 }

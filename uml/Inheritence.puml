@@ -32,7 +32,6 @@ abstract class AbstractAircraft
     + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp):void
     + decreaseHp(int decrease):void
     + getHp():int
-    + prop(): AbsractProp
     + {abstract} shoot():List<Bullet>
     + {abstract} form(): int
  }
@@ -105,22 +104,23 @@ class EnemyBullet {
 
 abstract class AbsractProp {
     +AbsractProp(int locationX, int locationY):void
-    +{abstract} form :int
+    +{abstract} use ():void
+    + prop(): AbsractProp
 
 }
 
 class HpSupply{
     +HpSupply(int locationX, int locationY):void
-    +form:int
+    +use():void
 }
 
 class FireSupply{
     +FireSupply(int locationX, int locationY):void
-    +form:int
+    +use():void
 }
 
 class BombSupply{
     +BombSupply(int locationX, int locationY):void
-    +form:int
+    +use():void
 }
 @enduml

@@ -1,17 +1,24 @@
 package edu.hitsz.application;
 
-import edu.hitsz.aircraft.*;
-import edu.hitsz.bullet.AbstractBullet;
+import edu.hitsz.aircraft.AbstractAircraft;
+import edu.hitsz.aircraft.EliteEnemy;
+import edu.hitsz.aircraft.HeroAircraft;
+import edu.hitsz.aircraft.MobEnemy;
 import edu.hitsz.basic.AbstractFlyingObject;
+import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.items.AbstractProp;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import static edu.hitsz.items.AbstractProp.prop;
 
 /**
  * 游戏主面板，游戏启动
@@ -195,6 +202,7 @@ public class Game extends JPanel {
         for (AbstractBullet enemybullet : enemyBullets)
         if (heroAircraft.crash(enemybullet)){
             heroAircraft.decreaseHp(enemybullet.getPower());
+            enemybullet.vanish();
         }
         // 英雄子弹攻击敌机
         for (AbstractBullet bullet : heroBullets) {
@@ -221,7 +229,7 @@ public class Game extends JPanel {
 
                         // 可能不会生成道具
                             if(Math.random()>=0.5)
-                            abstractProp.add(enemyAircraft.prop());
+                            abstractProp.add(prop(enemyAircraft));
                         }
                     }
                 }
@@ -236,19 +244,9 @@ public class Game extends JPanel {
         // 我方获得道具，道具生效
 
         for(AbstractProp p:abstractProp){
-            int f=p.form();
-            int hp = heroAircraft.getHp();
             if (heroAircraft.crash(p)){
                 p.vanish();
-                if(f==0){
-                    System.out.println("BombSupply active!");
-                }
-                else if(f==1){
-                    System.out.println("FireSupply active!");
-                }
-                else {
-                    heroAircraft.raiseHp(20);
-                    }
+                p.use(heroAircraft);
                 }
 
             }

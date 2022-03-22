@@ -1,8 +1,7 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
-import edu.hitsz.items.*;
+import edu.hitsz.bullet.AbstractBullet;
 
 import java.util.List;
 
@@ -49,23 +48,6 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
     }
 
 
-    public AbstractProp prop(){
-        int x = this.getLocationX();
-        int y = this.getLocationY();
-        double i = Math.random();
-        AbstractProp abstractProp;
-        //随机生成三种道具
-        if (i<=0.3){
-            abstractProp = new HpSupply(x,y);
-        }
-        else if (i>0.3&&i<=0.6){
-            abstractProp = new BombSupply(x,y);
-        }
-        else{
-            abstractProp = new FireSupply(x,y);
-        }
-        return (abstractProp);
-    }
 
 
     /**
