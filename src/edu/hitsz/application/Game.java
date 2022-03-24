@@ -1,11 +1,10 @@
 package edu.hitsz.application;
 
 import edu.hitsz.aircraft.AbstractAircraft;
-import edu.hitsz.aircraft.EliteEnemy;
 import edu.hitsz.aircraft.HeroAircraft;
-import edu.hitsz.aircraft.MobEnemy;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.AbstractBullet;
+import edu.hitsz.factory.EnemyFactory;
 import edu.hitsz.items.AbstractProp;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
@@ -18,7 +17,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import static edu.hitsz.items.AbstractProp.prop;
+import static edu.hitsz.factory.PropFactory.prop;
+
 
 /**
  * 游戏主面板，游戏启动
@@ -37,7 +37,7 @@ public class Game extends JPanel {
     /**
      * 时间间隔(ms)，控制刷新频率
      */
-    private int timeInterval = 40;
+    private final int timeInterval = 40;
 
     private final HeroAircraft heroAircraft;
     private final List<AbstractAircraft> enemyAircrafts;
@@ -94,23 +94,8 @@ public class Game extends JPanel {
                 System.out.println(time);
                 // 新敌机产生
                 if (enemyAircrafts.size() < enemyMaxNumber) {
-                    if(Math.random()<0.8){
-                        enemyAircrafts.add(new MobEnemy(
-                                (int) ( Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()))*1,
-                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2)*1,
-                                0,
-                                10,
-                                30
-                        )  );
-                    }
-                    else
-                        enemyAircrafts.add(new EliteEnemy(
-                                (int)(Math.random()*(Main.WINDOW_WIDTH - ImageManager.ELITE_ENEMY_IMAGE.getWidth()))*1,
-                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2)*1,
-                                (int) (Math.random()*8),
-                                8,
-                                50
-                        ));
+                    EnemyFactory enemyFactory = new EnemyFactory();
+                    enemyAircrafts.add(enemyFactory.create());
                 }
                 // 飞机射出子弹
                 shootAction();
@@ -276,7 +261,6 @@ public class Game extends JPanel {
      * 重写paint方法
      * 通过重复调用paint方法，实现游戏动画
      *
-     * @param  g
      */
     @Override
     public void paint(Graphics g) {

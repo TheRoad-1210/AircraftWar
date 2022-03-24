@@ -123,4 +123,6 @@ class BombSupply{
     +BombSupply(int locationX, int locationY):void
     +use():void
 }
+
+
 @enduml

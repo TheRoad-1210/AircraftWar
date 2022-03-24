@@ -4,7 +4,6 @@ import edu.hitsz.aircraft.AbstractAircraft;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 
-
 import java.awt.image.BufferedImage;
 
 /**
@@ -18,12 +17,12 @@ public abstract class AbstractFlyingObject {
     /**
      * x 轴坐标
      */
-    protected int locationX;
+    public int locationX;
 
     /**
      * y 轴坐标
      */
-    protected int locationY;
+    public int locationY;
 
 
     /**

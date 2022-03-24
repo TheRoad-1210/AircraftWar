@@ -4,8 +4,8 @@ import edu.hitsz.aircraft.HeroAircraft;
 
 public class BombSupply extends AbstractProp{
 
-    public BombSupply(int locationX, int locationY) {
-        super(locationX, locationY);
+    public BombSupply() {
+
     }
 
     @Override

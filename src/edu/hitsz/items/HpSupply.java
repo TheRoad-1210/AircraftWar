@@ -3,8 +3,9 @@ package edu.hitsz.items;
 import edu.hitsz.aircraft.HeroAircraft;
 
 public class HpSupply extends AbstractProp{
-    public HpSupply(int locationX, int locationY) {
-        super(locationX, locationY);
+
+    public HpSupply(){
+
     }
 
     @Override
