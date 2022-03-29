@@ -3,8 +3,8 @@
 
 abstract class AbstractFlyingObject
 {
-    # locationX:int
-    # locationY:int
+    + locationX:int
+    + locationY:int
     # speedX:int
     # speedY:int
     # image:BufferedImage
@@ -45,13 +45,14 @@ abstract class AbstractBullet
 }
 
 AbstractFlyingObject <|-- AbstractAircraft
-AbstractFlyingObject <|-- AbstractBullet
-AbstractFlyingObject <|-- AbsractProp
+AbstractFlyingObject <|-up- AbstractBullet
+AbstractFlyingObject <|-up- AbsractProp
 
 AbstractAircraft <|-- HeroAircraft
 AbstractAircraft <|-- MobEnemy
 AbstractAircraft <|-- EliteEnemy
 AbstractAircraft <|-- BossEnemy
+HeroAircraft --> HeroAircraft
 
 AbstractBullet <|-- HeroBullet
 AbstractBullet <|-- EnemyBullet
@@ -60,6 +61,15 @@ AbsractProp <|-- HpSupply
 AbsractProp <|-- FireSupply
 AbsractProp <|-- BombSupply
 
+HeroAircraft o-- HeroBullet
+EliteEnemy o-- EnemyBullet
+
+EliteFactory..> EliteEnemy
+BossFactory..> BossEnemy
+MobFactory..> MobEnemy
+HpFactory ..> HpSupply
+BombFactory ..> BombSupply
+FireFactory ..> FireSupply
 class HeroAircraft {
 
     -{static}instance:HeroAircraft
@@ -123,6 +133,5 @@ class BombSupply{
     +BombSupply(int locationX, int locationY):void
     +use():void
 }
-
 
 @enduml

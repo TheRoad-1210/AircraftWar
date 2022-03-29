@@ -4,7 +4,6 @@ import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bullet.EnemyBullet;
 
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class EliteEnemy extends AbstractAircraft {
     public List<AbstractBullet> shoot() {
         List<AbstractBullet> enemyres = new LinkedList<>();
         int x = this.getLocationX();
-        int y = this.getLocationY() - direction * 2;
+        int y = this.getLocationY() + direction * 2;
         int speedX = 0;
         int speedY = this.getSpeedY() - direction * 5;
         AbstractBullet abstractBullet;

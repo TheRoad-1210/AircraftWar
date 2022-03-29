@@ -1,0 +1,55 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+Factory <|.up. EnemyFactory
+Factory <|.. PropFactory
+HpFactory --|> PropFactory
+BombFactory --|> PropFactory
+FireFactory --|> PropFactory
+EliteFactory --|> EnemyFactory
+MobFactory --|> EnemyFactory
+BossFactory --|> EnemyFactory
+
+EliteFactory..> EliteEnemy
+BossFactory..> BossEnemy
+MobFactory..> MobEnemy
+HpFactory ..> HpSupply
+BombFactory ..> BombSupply
+FireFactory ..> FireSupply
+
+interface Factory{
+    +create():AbstractFlyingObject
+}
+
+class PropFactory{
+    +{static} prop(AbstractAircraft enemyAircraft)
+    +create():AbsractProp
+}
+
+class FireFactory{
+    +create():AbsractProp
+}
+
+class HpFactory{
+    +create():AbsractProp
+}
+
+class BombFactory{
+    +create():AbsractProp
+}
+
+class EnemyFactory{
+    +create():AbsractAircraft
+}
+
+class MobFactory{
+    +create():AbsractAircraft
+}
+
+class EliteFactory{
+    +create():AbsractAircraft
+}
+
+class BossFactory
+@enduml
