@@ -4,6 +4,11 @@ import edu.hitsz.bullet.AbstractBullet;
 
 import java.util.List;
 
+/**
+ * boss敌机，在关卡末尾出现
+ * @author 200111013
+ */
+
 public class BossEnemy extends AbstractAircraft{
 
     public BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {

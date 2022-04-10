@@ -17,18 +17,21 @@ public abstract class AbstractFlyingObject {
     /**
      * x 轴坐标
      */
-    public int locationX;
+    protected int locationX;
 
     /**
      * y 轴坐标
      */
-    public int locationY;
+    protected int locationY;
 
 
     /**
      * x 轴移动速度
      */
     protected int speedX;
+
+
+
 
     /**
      * y 轴移动速度

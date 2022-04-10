@@ -107,6 +107,9 @@ public class Game extends JPanel {
             // 飞机移动
             aircraftsMoveAction();
 
+            //道具移动
+            propMoveAction();
+
             // 撞击检测
             crashCheckAction();
 
@@ -175,6 +178,12 @@ public class Game extends JPanel {
         }
     }
 
+    private void propMoveAction(){
+        for (AbstractProp prop : abstractProp) {
+            prop.forward();
+        }
+    }
+
 
     /**
      * 碰撞检测：
@@ -184,10 +193,11 @@ public class Game extends JPanel {
      */
     private void crashCheckAction() {
         //  敌机子弹攻击英雄
-        for (AbstractBullet enemybullet : enemyBullets)
-        if (heroAircraft.crash(enemybullet)){
-            heroAircraft.decreaseHp(enemybullet.getPower());
-            enemybullet.vanish();
+        for (AbstractBullet enemybullet : enemyBullets) {
+            if (heroAircraft.crash(enemybullet)){
+                heroAircraft.decreaseHp(enemybullet.getPower());
+                enemybullet.vanish();
+            }
         }
         // 英雄子弹攻击敌机
         for (AbstractBullet bullet : heroBullets) {
@@ -213,8 +223,9 @@ public class Game extends JPanel {
                             score += 10;
 
                         // 可能不会生成道具
-                            if(Math.random()>=0.5)
-                            abstractProp.add(prop(enemyAircraft));
+                            if(Math.random()>=0.5) {
+                                abstractProp.add(prop(enemyAircraft));
+                            }
                         }
                     }
                 }

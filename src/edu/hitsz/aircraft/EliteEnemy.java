@@ -7,6 +7,11 @@ import edu.hitsz.bullet.EnemyBullet;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * 精英敌机，可发射子弹
+ * @author 200111013
+ */
+
 public class EliteEnemy extends AbstractAircraft {
 
     private int shootNum = 1;

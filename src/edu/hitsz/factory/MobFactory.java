@@ -5,6 +5,9 @@ import edu.hitsz.aircraft.MobEnemy;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 
+/**
+ * @author 200111013
+ */
 public class MobFactory extends EnemyFactory{
     @Override
     public AbstractAircraft create() {
