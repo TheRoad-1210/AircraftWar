@@ -12,7 +12,7 @@ public class PropFactory implements Factory{
         PropFactory factory = new PropFactory();
         AbstractProp abstractProp = factory.create();
         abstractProp.setLocation(enemyAircraft.getLocationX(),enemyAircraft.getLocationY());
-        System.out.println(abstractProp.getSpeedY());
+//        System.out.println(abstractProp.getSpeedY());
         return (abstractProp);
     }
 

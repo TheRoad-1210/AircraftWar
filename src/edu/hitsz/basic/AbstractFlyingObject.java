@@ -31,8 +31,6 @@ public abstract class AbstractFlyingObject {
     protected int speedX;
 
 
-
-
     /**
      * y 轴移动速度
      */
@@ -167,6 +165,11 @@ public abstract class AbstractFlyingObject {
      */
     public void vanish() {
         isValid = false;
+    }
+
+    public void setSpeed(int speedX, int speedY){
+        this.speedY = speedY;
+        this.speedX = speedX;
     }
 
 }

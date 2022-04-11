@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Context o-- ShootStrategy
+ShootStrategy <|..  MobShoot
+ShootStrategy <|..  SeperateShoot
+
+class Context
+{
+    - strategy:ShootStrategy
+    + setStrategy(ShootStrategy strategy):void
+    + executeStrategy(AbstractAircraft aircraft):List<AbstractBullet>
+}
+
+abstract class ShootStrategy
+{
+    + create(AbstractAircraft aircraft):List<AbstractBullet>
+    + abstract Way(List<AbstractBullet> bullet):List<AbstractBullet>
+
+}
+
+class MobShoot
+{
+    +Way(List<AbstractBullet> bullet):List<AbstractBullet>
+}
+
+class SeperateShoot
+{
+    +Way(List<AbstractBullet> bullet):List<AbstractBullet>
+}
+@enduml

@@ -24,6 +24,7 @@ abstract class AbstractFlyingObject
     + getHeight():int
     + notValid():boolean
     + vanish():void
+    + setSpeed(int speedX, int speedY):void
 }
 abstract class AbstractAircraft
 {
@@ -116,6 +117,7 @@ abstract class AbsractProp {
     +AbsractProp(int locationX, int locationY):void
     +{abstract} use ():void
     + prop(): AbsractProp
+    +forward():void
 
 }
 
