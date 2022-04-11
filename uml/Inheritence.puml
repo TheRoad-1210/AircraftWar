@@ -33,6 +33,10 @@ abstract class AbstractAircraft
     + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp):void
     + decreaseHp(int decrease):void
     + getHp():int
+    - direction:int
+    + getDirection():int
+    - power:int
+    + getPower:int
     + {abstract} shoot():List<Bullet>
     + {abstract} form(): int
  }
@@ -75,7 +79,6 @@ class HeroAircraft {
 
     -{static}instance:HeroAircraft
     +{static}getInstance():HeroAircraft
-    - shootNum:int
     - power:int
     - direction:int
     - HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp):void

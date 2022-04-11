@@ -1,6 +1,7 @@
 package edu.hitsz.items;
 
 import edu.hitsz.aircraft.HeroAircraft;
+import edu.hitsz.shoot.SeperateShoot;
 
 /**
  * @author 200111013
@@ -12,7 +13,7 @@ public class FireSupply extends AbstractProp{
 
     @Override
     public void use(HeroAircraft heroAircraft) {
-        System.out.println("FireSupply active!");
+        heroAircraft.setStrategy(new SeperateShoot());
     }
 
 

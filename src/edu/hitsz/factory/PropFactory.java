@@ -12,7 +12,6 @@ public class PropFactory implements Factory{
         PropFactory factory = new PropFactory();
         AbstractProp abstractProp = factory.create();
         abstractProp.setLocation(enemyAircraft.getLocationX(),enemyAircraft.getLocationY());
-//        System.out.println(abstractProp.getSpeedY());
         return (abstractProp);
     }
 
@@ -23,7 +22,7 @@ public class PropFactory implements Factory{
         PropFactory propFactory;
         AbstractProp abstractProp;
         double prop1 = 0.3;
-        double prop2 = 0.9;
+        double prop2 = 0.6;
         //随机生成三种道具
         if (i<=prop1){
             propFactory = new HpFactory();

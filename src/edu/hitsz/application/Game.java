@@ -223,7 +223,7 @@ public class Game extends JPanel {
                             score += 10;
 
                         // 可能不会生成道具
-                            if(Math.random()>=0.5) {
+                            if(Math.random()>=0.3) {
                                 abstractProp.add(prop(enemyAircraft));
                             }
                         }

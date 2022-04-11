@@ -3,9 +3,10 @@ package edu.hitsz.aircraft;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
-import edu.hitsz.bullet.HeroBullet;
+import edu.hitsz.shoot.MobShoot;
+import edu.hitsz.shoot.ShootContext;
+import edu.hitsz.shoot.ShootStrategy;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class HeroAircraft extends AbstractAircraft {
     private static HeroAircraft instance = new HeroAircraft(
             Main.WINDOW_WIDTH / 2,
             Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-            0, 0, 100);
+            0, 0, 10000);
 
     public static HeroAircraft getInstance(){
         return instance;
@@ -25,10 +26,6 @@ public class HeroAircraft extends AbstractAircraft {
 
     /**攻击方式 */
 
-    /**
-     * 子弹一次发射数量
-     */
-    private int shootNum = 1;
 
     /**
      * 子弹伤害
@@ -39,6 +36,15 @@ public class HeroAircraft extends AbstractAircraft {
      * 子弹射击方向 (向下发射：1，向上发射：-1)
      */
     private int direction = -1;
+
+    /**
+     * 子弹攻击方式
+     */
+    private ShootStrategy strategy = new MobShoot();
+
+    public void setStrategy(ShootStrategy strategy) {
+        this.strategy = strategy;
+    }
 
     /**
      * @param locationX 英雄机位置x坐标
@@ -62,19 +68,8 @@ public class HeroAircraft extends AbstractAircraft {
      * @return 射击出的子弹List
      */
     public List<AbstractBullet> shoot() {
-        List<AbstractBullet> res = new LinkedList<>();
-        int x = this.getLocationX();
-        int y = this.getLocationY() + direction*2;
-        int speedX = 0;
-        int speedY = this.getSpeedY() + direction*5;
-        AbstractBullet abstractBullet;
-        for(int i=0; i<shootNum; i++){
-            // 子弹发射位置相对飞机位置向前偏移
-            // 多个子弹横向分散
-            abstractBullet = new HeroBullet(x + (i*2 - shootNum + 1)*10, y, speedX, speedY, power);
-            res.add(abstractBullet);
-        }
-        return res;
+        ShootContext context = new ShootContext(strategy);
+        return context.executrStrategy(this);
     }
 
     @Override

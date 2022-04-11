@@ -47,8 +47,17 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
         return hp;
     }
 
+    public int getDirection() {
+        return direction;
+    }
 
+    private int direction = -1;
 
+    public int getPower() {
+        return power;
+    }
+
+    private int power = 30;
 
     /**
      * 飞机射击方法，可射击对象必须实现
