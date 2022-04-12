@@ -46,7 +46,7 @@ public class Game extends JPanel {
     private final List<AbstractBullet> heroBullets;
     private final List<AbstractBullet> enemyBullets;
     private final List<AbstractProp> abstractProp;
-    private final int bossScoreThreshold = 50;
+    private final int bossScoreThreshold = 200;
 
     private int enemyMaxNumber = 5;
 
@@ -55,6 +55,7 @@ public class Game extends JPanel {
 
     private int score = 0;
     private int time = 0;
+    public int scorer = 0;
     /**
      * 周期（ms)
      * 指示子弹的发射、敌机的产生频率
@@ -225,13 +226,22 @@ public class Game extends JPanel {
                     if (enemyAircraft.notValid()) {
                         //  获得分数，产生道具补给
                         score += 10;
-                        if(enemyAircraft instanceof EliteEnemy){
+                        scorer += 10;
+                        if(enemyAircraft instanceof EliteEnemy ){
                             score += 10;
-
+                            scorer += 10;
                         // 可能不会生成道具
                             if(Math.random()>=0.3) {
                                 abstractProp.add(prop(enemyAircraft));
                             }
+                        }
+                        if(enemyAircraft instanceof BossEnemy ){
+                            score += 40;
+                            scorer += 40;
+                            abstractProp.add(prop(enemyAircraft));
+                            abstractProp.add(prop(enemyAircraft));
+                            abstractProp.add(prop(enemyAircraft));
+                            abstractProp.add(prop(enemyAircraft));
                         }
                     }
                 }
@@ -270,17 +280,25 @@ public class Game extends JPanel {
 
     }
 
+
     /**
      * 发送boss产生信号给敌机工厂
      */
     private void bossTime(){
-        boolean flag = true;
+
+        boolean flag1 = true;
+        boolean flag2 = false;
+        if(this.scorer >= bossScoreThreshold){
+            flag2 = true;
+            this.scorer = this.scorer-bossScoreThreshold;
+        }
+
         for (AbstractAircraft enemy:enemyAircrafts){
             if(enemy instanceof BossEnemy){
-                flag = false;
+                flag1 = false;
             }
         }
-        if(score % bossScoreThreshold == 0 && flag && score > 0){
+        if( flag1 && flag2){
             EnemyFactory enemyFactory = new EnemyFactory();
             enemyFactory.boss = true;
             enemyAircrafts.add(enemyFactory.create());
