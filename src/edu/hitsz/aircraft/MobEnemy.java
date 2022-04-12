@@ -1,6 +1,5 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.application.Game;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
 
@@ -31,11 +30,6 @@ public class MobEnemy extends AbstractAircraft {
     @Override
     public List<AbstractBullet> shoot() {
         return new LinkedList<>();
-    }
-
-    @Override
-    public int form() {
-        return 1;
     }
 
 }

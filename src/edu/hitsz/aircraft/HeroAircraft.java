@@ -18,7 +18,7 @@ public class HeroAircraft extends AbstractAircraft {
     private static HeroAircraft instance = new HeroAircraft(
             Main.WINDOW_WIDTH / 2,
             Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-            0, 0, 10000);
+            0, 0, 100000);
 
     public static HeroAircraft getInstance(){
         return instance;
@@ -72,9 +72,5 @@ public class HeroAircraft extends AbstractAircraft {
         return context.executrStrategy(this);
     }
 
-    @Override
-    public int form() {
-        return 0;
-    }
 
 }

@@ -1,6 +1,8 @@
 package edu.hitsz.application;
 
 import edu.hitsz.aircraft.AbstractAircraft;
+import edu.hitsz.aircraft.BossEnemy;
+import edu.hitsz.aircraft.EliteEnemy;
 import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.AbstractBullet;
@@ -44,10 +46,13 @@ public class Game extends JPanel {
     private final List<AbstractBullet> heroBullets;
     private final List<AbstractBullet> enemyBullets;
     private final List<AbstractProp> abstractProp;
+    private final int bossScoreThreshold = 50;
 
     private int enemyMaxNumber = 5;
 
     private boolean gameOverFlag = false;
+
+
     private int score = 0;
     private int time = 0;
     /**
@@ -92,6 +97,8 @@ public class Game extends JPanel {
             // 周期性执行（控制频率）
             if (timeCountAndNewCycleJudge()) {
                 System.out.println(time);
+                //Boss检测
+                bossTime();
                 // 新敌机产生
                 if (enemyAircrafts.size() < enemyMaxNumber) {
                     EnemyFactory enemyFactory = new EnemyFactory();
@@ -218,8 +225,7 @@ public class Game extends JPanel {
                     if (enemyAircraft.notValid()) {
                         //  获得分数，产生道具补给
                         score += 10;
-                        int i = enemyAircraft.form();
-                        if(i==2){
+                        if(enemyAircraft instanceof EliteEnemy){
                             score += 10;
 
                         // 可能不会生成道具
@@ -263,6 +269,24 @@ public class Game extends JPanel {
         abstractProp.removeIf(AbstractProp::notValid);
 
     }
+
+    /**
+     * 发送boss产生信号给敌机工厂
+     */
+    private void bossTime(){
+        boolean flag = true;
+        for (AbstractAircraft enemy:enemyAircrafts){
+            if(enemy instanceof BossEnemy){
+                flag = false;
+            }
+        }
+        if(score % bossScoreThreshold == 0 && flag && score > 0){
+            EnemyFactory enemyFactory = new EnemyFactory();
+            enemyFactory.boss = true;
+            enemyAircrafts.add(enemyFactory.create());
+        }
+    }
+
 
     //***********************
     //      Paint 各部分

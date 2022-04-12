@@ -30,10 +30,7 @@ public class EliteEnemy extends AbstractAircraft {
         return context.executrStrategy(this);
     }
 
-    @Override
-    public int form() {
-        return 2;
-    }
+
 
     @Override
     public void forward() {

@@ -3,6 +3,7 @@ package edu.hitsz.shoot;
 import edu.hitsz.aircraft.AbstractAircraft;
 import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.bullet.AbstractBullet;
+import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.HeroBullet;
 
 import java.util.LinkedList;
@@ -35,7 +36,9 @@ public class SeperateShoot implements ShootStrategy{
             for(int i=0; i<shootNum; i++){
                 // 子弹发射位置相对飞机位置向前偏移
                 // 多个子弹横向分散
-                abstractBullet = new HeroBullet(x + (i*2 - shootNum + 1)*10, y, i-2, speedY, aircraft.getPower());
+                abstractBullet = new EnemyBullet(x + (i*2 - shootNum + 1)*10,
+                        aircraft.getLocationY() - aircraft.getDirection()*2,
+                        i-2, speedY, aircraft.getPower());
                 res.add(abstractBullet);
             }
         }

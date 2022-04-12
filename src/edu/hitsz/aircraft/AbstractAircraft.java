@@ -43,6 +43,7 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
         }
     }
 
+
     public int getHp() {
         return hp;
     }
@@ -66,13 +67,6 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
      *  非可射击对象空实现，返回null
      */
     public abstract List<AbstractBullet> shoot();
-
-    /**
-     * 飞机类型
-     * @return
-     * 返回一个标号作为标记
-     */
-    public abstract int form();
 
 }
 

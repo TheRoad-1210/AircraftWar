@@ -84,14 +84,12 @@ class HeroAircraft {
     - HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp):void
     + forward():void
     + shoot():List<Bullet>
-    + form() :int
 }
 
 class MobEnemy {
     + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp):void
     + forward():void
     + shoot():List<Bullet>
-    + form() :int
 }
 
 class EliteEnemy {
@@ -100,11 +98,17 @@ class EliteEnemy {
     - direction:int
     + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp) :void
     + shoot():List<Bullet>
-    + form() :int
     + forward():void
 }
 
-class BossEnemy
+class BossEnemy {
+    - shootNum:int
+    - power:int
+    - direction:int
+    + BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp) :void
+    + shoot():List<Bullet>
+    + forward():void
+}
 
 class HeroBullet {
     + HeroBullet(int locationX, int locationY,

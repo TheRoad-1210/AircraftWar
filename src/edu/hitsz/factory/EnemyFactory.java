@@ -6,12 +6,19 @@ import edu.hitsz.aircraft.AbstractAircraft;
  * @author 200111013
  */
 public class EnemyFactory implements Factory{
+    public boolean boss = false;
+
     @Override
     public AbstractAircraft create() {
         EnemyFactory enemyFactory;
         AbstractAircraft abstractAircraft;
         double prob = 0.7;
-        if(Math.random()<prob){
+
+        if(boss){
+            enemyFactory = new BossFactory();
+            System.out.println("boss!!!");
+        }
+        else if(Math.random()<prob){
             enemyFactory = new MobFactory();
         }
         else {
