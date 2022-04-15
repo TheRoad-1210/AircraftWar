@@ -8,13 +8,19 @@ import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.factory.EnemyFactory;
 import edu.hitsz.items.AbstractProp;
+import edu.hitsz.player.Player;
+import edu.hitsz.player.PlayerDaoImpl;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -132,6 +138,13 @@ public class Game extends JPanel {
                 // 游戏结束
                 executorService.shutdown();
                 gameOverFlag = true;
+                try {
+                    paintScore();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Game Over!");
             }
 
@@ -368,5 +381,33 @@ public class Game extends JPanel {
         g.drawString("LIFE:" + this.heroAircraft.getHp(), x, y);
     }
 
+    /**
+     * 输入player id，获得排名榜
+     */
 
+    private void paintScore() throws IOException, ClassNotFoundException {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+        Player player = new Player(this.score,dateFormat.format(date));
+        player.setScore(this.score);
+        System.out.println("请输入您的id");
+        Scanner s = new Scanner(System.in);
+        player.setName(String.valueOf(s));
+        PlayerDaoImpl playerDao = new PlayerDaoImpl();
+        playerDao.doAdd(player);
+        playerDao.storage();
+        System.out.println("ok吗");
+        playerDao.read();
+        System.out.println(
+                "**************************"+
+                        "得分排行榜"+
+                        "**************************"
+        );
+        for (int i = 0; i<playerDao.getPlayers().size();i++) {
+            int j = i+1;
+            System.out.print("第"+ j +"名： " + playerDao.getPlayers().get(i).getName()
+                    + playerDao.getPlayers().get(i).getScore()
+                    +playerDao.getPlayers().get(i).getTime());
+        }
+    }
 }

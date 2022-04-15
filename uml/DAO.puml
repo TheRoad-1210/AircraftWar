@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/class-diagram
+class Game
+
+class Player{
+    -score:int
+    -name:String
+    -time: String
+    +Player(int score, String name)
+    +setScore(int score):void
+    +getScore():int
+    +setName(String name):void
+    +getName(): String
+    +setTime(String time:void
+    +getTime():String
+
+}
+interface PlayerDao{
+    +doAdd(Player players): void
+    +scoreArray():List<Player>
+}
+class PlayerDaoImpl{
+    -players:List<Player>
+    +doAdd(Player players): void
+    +scoreArray():List<Player>
+}
+
+
+@enduml
