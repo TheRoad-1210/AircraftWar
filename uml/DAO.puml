@@ -22,7 +22,7 @@ class Player{
 }
 interface PlayerDao{
     +doAdd(Player players): void
-    +scoreArray():List<Player>
+    +scoreArray():void
 }
 class PlayerDaoImpl{
     +getPlayers():ArrayList<Player>

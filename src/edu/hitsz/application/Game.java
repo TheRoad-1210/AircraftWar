@@ -389,7 +389,6 @@ public class Game extends JPanel {
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
         Player player = new Player(this.score,dateFormat.format(date));
-        player.setScore(this.score);
         System.out.println("请输入您的id");
         Scanner s = new Scanner(System.in);
         player.setName(String.valueOf(s.next()));
