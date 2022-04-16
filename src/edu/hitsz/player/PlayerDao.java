@@ -15,4 +15,5 @@ public interface PlayerDao {
      * @return 排名后列表
      */
     public void scoreArray();
+
 }

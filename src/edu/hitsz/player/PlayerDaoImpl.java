@@ -7,14 +7,8 @@ import java.util.ArrayList;
  * @author deequoique
  */
 public class PlayerDaoImpl implements PlayerDao{
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
 
     private final ArrayList<Player> players = new ArrayList<>();
-
-    public PlayerDaoImpl() {
-    }
 
     @Override
     public void doAdd(Player player) {

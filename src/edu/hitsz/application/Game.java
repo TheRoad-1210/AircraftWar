@@ -374,7 +374,7 @@ public class Game extends JPanel {
     private void paintScoreAndLife(Graphics g) {
         int x = 10;
         int y = 25;
-        g.setColor(new Color(0x008EEF));
+        g.setColor(new Color(0x00CBEF));
         g.setFont(new Font("SansSerif", Font.BOLD, 22));
         g.drawString("SCORE:" + this.score, x, y);
         y = y + 20;
@@ -397,6 +397,7 @@ public class Game extends JPanel {
         playerDao.read();
         playerDao.doAdd(player);
         playerDao.storage();
+        playerDao.scoreArray();
         System.out.println(
                 "**************************"+
                         "得分排行榜"+

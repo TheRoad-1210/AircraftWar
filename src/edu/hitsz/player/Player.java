@@ -34,8 +34,4 @@ public class Player implements Serializable {
         return time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
 }
