@@ -54,7 +54,7 @@ public class Game extends JPanel {
     private final List<AbstractProp> abstractProp;
     private final int bossScoreThreshold = 200;
 
-    private int enemyMaxNumber = 5;
+    private final int enemyMaxNumber = 5;
 
     private boolean gameOverFlag = false;
 
@@ -66,7 +66,7 @@ public class Game extends JPanel {
      * 周期（ms)
      * 指示子弹的发射、敌机的产生频率
      */
-    private int cycleDuration = 600;
+    private final int cycleDuration = 600;
     private int cycleTime = 0;
 
     public Game() {
@@ -78,10 +78,10 @@ public class Game extends JPanel {
 
 
 
-        /**
-         * Scheduled 线程池，用于定时任务调度
-         * 关于alibaba code guide：可命名的 ThreadFactory 一般需要第三方包
-         * apache 第三方库： org.apache.commons.lang3.concurrent.BasicThreadFactory
+        /*
+          Scheduled 线程池，用于定时任务调度
+          关于alibaba code guide：可命名的 ThreadFactory 一般需要第三方包
+          apache 第三方库： org.apache.commons.lang3.concurrent.BasicThreadFactory
          */
         this.executorService = new ScheduledThreadPoolExecutor(1,
                 new BasicThreadFactory.Builder().namingPattern("game-action-%d").daemon(true).build());
@@ -138,11 +138,10 @@ public class Game extends JPanel {
                 // 游戏结束
                 executorService.shutdown();
                 gameOverFlag = true;
+                //打印排名榜及GameOver
                 try {
                     paintScore();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 System.out.println("Game Over!");
@@ -150,9 +149,9 @@ public class Game extends JPanel {
 
         };
 
-        /**
-         * 以固定延迟时间进行执行
-         * 本次任务执行完成后，需要延迟设定的延迟时间，才会执行新的任务
+        /*
+          以固定延迟时间进行执行
+          本次任务执行完成后，需要延迟设定的延迟时间，才会执行新的任务
          */
         executorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
 
@@ -307,8 +306,9 @@ public class Game extends JPanel {
         }
 
         for (AbstractAircraft enemy:enemyAircrafts){
-            if(enemy instanceof BossEnemy){
+            if (enemy instanceof BossEnemy) {
                 flag1 = false;
+                break;
             }
         }
         if( flag1 && flag2){

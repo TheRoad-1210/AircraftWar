@@ -11,7 +11,7 @@ public class PlayerDaoImpl implements PlayerDao{
         return players;
     }
 
-    private ArrayList<Player> players = new ArrayList<>();
+    private final ArrayList<Player> players = new ArrayList<>();
 
     public PlayerDaoImpl() {
     }
@@ -38,9 +38,7 @@ public class PlayerDaoImpl implements PlayerDao{
     public void read() throws IOException, ClassNotFoundException {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("score"));
             ArrayList<Player> ply =(ArrayList<Player>) ois.readObject();
-            for(Player player :ply) {
-                players.add(player);
-            }
+            players.addAll(ply);
             ois.close();
     }
 }
