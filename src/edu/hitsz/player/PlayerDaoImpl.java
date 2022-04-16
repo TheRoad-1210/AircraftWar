@@ -11,7 +11,7 @@ public class PlayerDaoImpl implements PlayerDao{
         return players;
     }
 
-    private ArrayList<Player> players;
+    private ArrayList<Player> players = new ArrayList<>();
 
     public PlayerDaoImpl() {
     }

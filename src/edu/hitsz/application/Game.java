@@ -374,7 +374,7 @@ public class Game extends JPanel {
     private void paintScoreAndLife(Graphics g) {
         int x = 10;
         int y = 25;
-        g.setColor(new Color(16711680));
+        g.setColor(new Color(0x008EEF));
         g.setFont(new Font("SansSerif", Font.BOLD, 22));
         g.drawString("SCORE:" + this.score, x, y);
         y = y + 20;
@@ -392,12 +392,11 @@ public class Game extends JPanel {
         player.setScore(this.score);
         System.out.println("请输入您的id");
         Scanner s = new Scanner(System.in);
-        player.setName(String.valueOf(s));
+        player.setName(String.valueOf(s.next()));
         PlayerDaoImpl playerDao = new PlayerDaoImpl();
+        playerDao.read();
         playerDao.doAdd(player);
         playerDao.storage();
-        System.out.println("ok吗");
-        playerDao.read();
         System.out.println(
                 "**************************"+
                         "得分排行榜"+
@@ -405,9 +404,10 @@ public class Game extends JPanel {
         );
         for (int i = 0; i<playerDao.getPlayers().size();i++) {
             int j = i+1;
-            System.out.print("第"+ j +"名： " + playerDao.getPlayers().get(i).getName()
-                    + playerDao.getPlayers().get(i).getScore()
-                    +playerDao.getPlayers().get(i).getTime());
+            System.out.print("第"+ j +"名： " + playerDao.getPlayers().get(i).getName()+"\t"
+                    + playerDao.getPlayers().get(i).getScore()+"\t"
+                    +playerDao.getPlayers().get(i).getTime()+"\t"
+            +"\n");
         }
     }
 }
