@@ -8,6 +8,10 @@ import java.util.ArrayList;
  */
 public class PlayerDaoImpl implements PlayerDao{
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     private final ArrayList<Player> players = new ArrayList<>();
 
     @Override

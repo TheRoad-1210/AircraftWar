@@ -25,6 +25,7 @@ interface PlayerDao{
     +scoreArray():List<Player>
 }
 class PlayerDaoImpl{
+    +getPlayers():ArrayList<Player>
     -players:ArrayList<Player>
     +doAdd(Player players): void
     +scoreArray():void
