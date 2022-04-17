@@ -393,7 +393,6 @@ public class Game extends JPanel {
         Scanner s = new Scanner(System.in);
         player.setName(String.valueOf(s.next()));
         PlayerDaoImpl playerDao = new PlayerDaoImpl();
-        playerDao.storage();
         playerDao.read();
         playerDao.doAdd(player);
         playerDao.storage();
