@@ -34,9 +34,15 @@ public class PlayerDaoImpl implements PlayerDao{
     }
 
     public void read() throws IOException, ClassNotFoundException {
+
+        File file = new File("score");
+            if(file.exists()){
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("score"));
             ArrayList<Player> ply =(ArrayList<Player>) ois.readObject();
             players.addAll(ply);
-            ois.close();
+            ois.close();}
+            else {
+                storage();
+            }
     }
 }
