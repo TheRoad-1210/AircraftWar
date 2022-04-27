@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * @author deequoique
@@ -22,7 +23,6 @@ public class RankList {
     public RankList() throws IOException, ClassNotFoundException {
         PlayerDaoImpl playerDao = new PlayerDaoImpl();
         playerDao.read();
-        playerDao.storage();
         playerDao.scoreArray();
         ArrayList<Player> players = playerDao.getPlayers();
         String[][] tableData = new String[players.size()][4];
@@ -50,7 +50,14 @@ public class RankList {
                 System.out.println(row);
                 if(row != -1){
                     model.removeRow(row);
-            }
+                    String time = (String) model.getValueAt(row-1,3);
+                    players.removeIf(player -> Objects.equals(player.getTime(), time));
+                    try {
+                        playerDao.storage();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
         }
     });
 }
