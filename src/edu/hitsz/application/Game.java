@@ -145,7 +145,13 @@ public class Game extends JPanel {
                     e.printStackTrace();
                 }
                 System.out.println("Game Over!");
+                gameOverFlag = true;
+                //通知主程序运行
+                synchronized (Main.LOCK){
+                    Main.LOCK.notify();
+                }
             }
+
 
         };
 
