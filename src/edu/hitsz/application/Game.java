@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +33,8 @@ import static edu.hitsz.factory.PropFactory.prop;
  * @author hitsz
  */
 public class Game extends JPanel {
+
+    public static final Object GAME_LOCK = new Object();
 
     private int backGroundTop = 0;
 
@@ -53,6 +54,12 @@ public class Game extends JPanel {
     private final List<AbstractBullet> enemyBullets;
     private final List<AbstractProp> abstractProp;
     private final int bossScoreThreshold = 200;
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    private Player player;
 
     private final int enemyMaxNumber = 5;
 
@@ -138,12 +145,27 @@ public class Game extends JPanel {
                 // 游戏结束
                 executorService.shutdown();
                 gameOverFlag = true;
-                //打印排名榜及GameOver
+                //创建player
+                createPlayer();
+                //通知主程序运行
+                synchronized (Main.LOCK){
+                    Main.LOCK.notify();
+                }
+                //game等待player输入
+                synchronized (GAME_LOCK){
+                    try {
+                        GAME_LOCK.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                //存储player
                 try {
-                    paintScore();
+                    storePlayer();
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
+                //gameover
                 System.out.println("Game Over!");
                 gameOverFlag = true;
                 //通知主程序运行
@@ -388,32 +410,36 @@ public class Game extends JPanel {
     }
 
     /**
-     * 输入player id，获得排名榜
+     * 创建player
      */
-
-    private void paintScore() throws IOException, ClassNotFoundException {
+    private void createPlayer(){
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
-        Player player = new Player(this.score,dateFormat.format(date));
-        System.out.println("请输入您的id");
-        Scanner s = new Scanner(System.in);
-        player.setName(String.valueOf(s.next()));
+        player = new Player(this.score,dateFormat.format(date));
+    }
+
+    /**
+     * 存储player
+     */
+
+    private void storePlayer() throws IOException, ClassNotFoundException {
+
         PlayerDaoImpl playerDao = new PlayerDaoImpl();
         playerDao.read();
         playerDao.doAdd(player);
         playerDao.storage();
         playerDao.scoreArray();
-        System.out.println(
-                "**************************"+
-                        "得分排行榜"+
-                        "**************************"
-        );
-        for (int i = 0; i<playerDao.getPlayers().size();i++) {
-            int j = i+1;
-            System.out.print("第"+ j +"名： " + playerDao.getPlayers().get(i).getName()+"\t"
-                    + playerDao.getPlayers().get(i).getScore()+"\t"
-                    +playerDao.getPlayers().get(i).getTime()+"\t"
-            +"\n");
-        }
+//        System.out.println(
+//                "**************************"+
+//                        "得分排行榜"+
+//                        "**************************"
+//        );
+//        for (int i = 0; i<playerDao.getPlayers().size();i++) {
+//            int j = i+1;
+//            System.out.print("第"+ j +"名： " + playerDao.getPlayers().get(i).getName()+"\t"
+//                    + playerDao.getPlayers().get(i).getScore()+"\t"
+//                    +playerDao.getPlayers().get(i).getTime()+"\t"
+//            +"\n");
+//        }
     }
 }

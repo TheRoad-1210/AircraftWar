@@ -1,7 +1,5 @@
 package edu.hitsz.application;
 
-import edu.hitsz.RankList;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -31,13 +29,13 @@ public class Main {
                 WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //启动game
-        Game game = new Game();
-        frame.add(game);
+        //启动初始界面
+        Start start = new Start();
+        JPanel startJpanel = start.getMainPanel();
+        frame.add(startJpanel);
         frame.setVisible(true);
-        game.action();
 
-        //等待game关闭
+        //等待start关闭
         synchronized (LOCK) {
             try {
                 LOCK.wait();
@@ -45,6 +43,54 @@ public class Main {
                 e.printStackTrace();
             }
         }
+
+        //启动game
+        Game game = new Game();
+        frame.remove(startJpanel);
+        frame.add(game);
+        frame.setVisible(true);
+        game.action();
+
+        //等待game通知
+        synchronized (LOCK) {
+            try {
+                LOCK.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //启动输入id界面
+        IdInput idInput = new IdInput(game.getPlayer());
+        JPanel idInputPanel = idInput.getMainPanel();
+        frame.remove(game);
+        frame.setContentPane(idInputPanel);
+        frame.setVisible(true);
+
+        //等待idinput关闭
+        synchronized (LOCK) {
+            try {
+                LOCK.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //通知game继续
+        synchronized (Game.GAME_LOCK){
+            Game.GAME_LOCK.notify();
+        }
+
+        //等待game关闭
+        synchronized (LOCK){
+            try {
+                LOCK.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //启动排行榜
         RankList rankList = new RankList();
         JPanel rankListPanel = rankList.getMainPanel();
         frame.remove(game);

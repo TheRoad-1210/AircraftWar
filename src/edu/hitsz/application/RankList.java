@@ -1,4 +1,4 @@
-package edu.hitsz;
+package edu.hitsz.application;
 
 import edu.hitsz.player.Player;
 import edu.hitsz.player.PlayerDaoImpl;
